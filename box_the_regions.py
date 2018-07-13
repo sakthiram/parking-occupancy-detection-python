@@ -68,7 +68,7 @@ class TKcanvas_setup(tk.Toplevel):
         self.lines.append(self.canvas.create_line(x1, y0, x0, y0, fill="red"))
 #       self.canvas.create_rectangle(x0, y0, x1, y1, fill="black")
 
-        self.full_obj_marker = (x0, y0, x1, y1)
+        self.full_obj_marker = (int(x0), int(y0), int(x1), int(y1))
         if (x1-x0 < min_pixels or y1-y0 < min_pixels):
             self.show_warning_box("WARNING: Width/Height of the box is less than "+str(min_pixels)+" pixels.")
             return
@@ -169,7 +169,7 @@ print("Boxes DynamoDB format => ", dict_to_item(boxes), "\n")
 dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
 table = dynamodb.Table('CE_Status_Table')
 
-respomse = table.put_item(
+response = table.put_item(
     Item = {
         'DSN': 'W3',
         'Timestamp': datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%dT%H:%M:%S'),
